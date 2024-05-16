@@ -99,7 +99,7 @@ namespace SaintsField.Editor.Drawers
                 text = "F";
             }
             float areaHeight = style.CalcHeight(new GUIContent(text), width);
-            return Mathf.Max(areaHeight, EditorGUIUtility.singleLineHeight * 3);
+            return Mathf.Max(areaHeight, EditorGUIUtility.singleLineHeight);
         }
 
         // private static float GetTextAreaHeight(string text) => (EditorGUIUtility.singleLineHeight - 3.0f) * GetNumberOfLines(text) + 3.0f;
