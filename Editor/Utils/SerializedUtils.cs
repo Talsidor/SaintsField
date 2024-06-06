@@ -182,24 +182,34 @@ namespace SaintsField.Editor.Utils
 
         public static object GetValueAtIndex(object source, int index)
         {
-            if (!(source is IEnumerable enumerable))
+            if (source is not IEnumerable enumerable)
             {
                 throw new Exception($"Not a enumerable {source}");
             }
 
             int searchIndex = 0;
+
+            object lastResult = null;
+
             // Debug.Log($"start check index in {source}");
             foreach (object result in enumerable)
             {
+                lastResult = result;
                 // Debug.Log($"check index {searchIndex} in {source}");
-                if(searchIndex == index)
+                if (searchIndex == index)
                 {
                     return result;
                 }
                 searchIndex++;
             }
 
-            throw new Exception($"Not found index {index} in {source}");
+            if (lastResult != null)
+            {
+                //Debug.LogWarning($"Index '{searchIndex}' exceeded count of enumerable, returning last good result {lastResult}");
+                return lastResult;
+            }
+
+            throw new ArgumentOutOfRangeException($"Not found index {index} in {source}");
         }
 
         public static int PropertyPathIndex(string propertyPath)
